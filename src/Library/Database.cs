@@ -7,42 +7,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Ucu.Poo.Repositories
 {
-
-
-
-    public class CarsDatabase
+    public class Database<T>
     {
-        private ArrayList cars = new ArrayList();
 
-        public void Add(Car car)
+        private List<T> items = new List<T>();
+
+        public void Add(T newItem)
         {
-            if (car != null)
+            if (newItem != null)
             {
-                this.cars.Add(car);
+                this.items.Add(newItem);
             }
         }
 
-
-        public void Remove(Car car)
+        public void Remove(T item)
         {
-            this.cars.Remove(car);
+            this.items.Remove(item);
         }
 
-        public Car Find(Predicate<Car> criteria)
+        public T Find(Predicate<T> criteria)
         {
-            foreach (Car car in this.cars)
+            foreach (T item in this.items)
             {
-                if (criteria(car))
+                if (criteria(item))
                 {
-                    return car;
+                    return item;
                 }
             }
 
-            return null;
+            return default(T);
         }
     }
-
 }
